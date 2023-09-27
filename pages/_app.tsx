@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import DefaultLayout from "../layouts/DefaultLayout";
 
+
 // Import FCL config
 import "../config/fcl";
 import { Sidebar } from "../components";

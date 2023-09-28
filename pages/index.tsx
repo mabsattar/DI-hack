@@ -1,4 +1,7 @@
 import Head from "next/head";
+import { Sidebar } from "../components";
+
+
  
 
 export default function Home() {
@@ -6,6 +9,7 @@ export default function Home() {
 
   return (
     <div>
+      
       <Head>
         <title>FCL Next Scaffold</title>
         <meta
@@ -14,6 +18,8 @@ export default function Home() {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <main className="text-[#000]">hello worl</main>
+     
     </div>
   );
 }

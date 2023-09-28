@@ -1,27 +1,26 @@
 import "../styles/globals.css";
 import DefaultLayout from "../layouts/DefaultLayout";
+import '../styles/auth.css'
+import '../styles/Chats.css'
+import '../styles/Index.css'
 
 
-// Import FCL config
+
 import "../config/fcl";
-import { Sidebar } from "../components";
+import { FlowProvider, useFlow } from "../context/FlowContext";
+// import { UserProvider } from "../context/UserContext";
 
 function MyApp({ Component, pageProps }) {
+
   return (
-    <>
-      <div className="flex items-start">
-        <Sidebar />
-        <div className="flex items-center justify-between py-[15px] px-[42px] border-b-2 border-Grey w-full ">
-          <div></div>
-          <div>
-            <button className="bg-Accent px-[19px] py-2.5 text-[16px] font-medium text-Black rounded-[6px]">
-              Connect Wallet
-            </button>
-          </div>
-        </div>
+    <FlowProvider>
+      <DefaultLayout>
+
+        {/* <UserProvider> */}
         <Component {...pageProps} />
-      </div>
-    </>
+        {/* </UserProvider> */}
+      </DefaultLayout>
+    </FlowProvider>
   );
 }
 

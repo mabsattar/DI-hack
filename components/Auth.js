@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Context } from '../context';
 import { useRouter } from "next/router";
 import axios from "axios";
-import Auth from '../compoentns';
 
 
-export function Chat () {
+export function Auth() {
     return (
       <div className="background">
         <div className="auth-container"></div>
@@ -18,4 +17,4 @@ export function Chat () {
     );
   }
   
-  export default Chat;
+  export default Auth;

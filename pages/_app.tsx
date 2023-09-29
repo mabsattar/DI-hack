@@ -1,28 +1,23 @@
 import "../styles/globals.css";
 import DefaultLayout from "../layouts/DefaultLayout";
-import '../styles/auth.css'
-import '../styles/Chat.css'
-import '../styles/Index.css'
 
-
-
+// Import FCL config
 import "../config/fcl";
 import { FlowProvider, useFlow } from "../context/FlowContext";
-import { ContextProvider } from "../context";
+import { UserProvider } from "../context/UserContext";
 
-export function MyApp({ Component, pageProps }) {
+
+function MyApp({ Component, pageProps }) {
 
   return (
     <FlowProvider>
       <DefaultLayout>
 
-      <ContextProvider>
+         <UserProvider> 
         <Component {...pageProps} />
-      </ContextProvider>
-      
+         </UserProvider> 
       </DefaultLayout>
     </FlowProvider>
-    
   );
 }
 

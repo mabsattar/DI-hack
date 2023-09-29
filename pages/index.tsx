@@ -1,10 +1,6 @@
 import Head from "next/head";
 import Navbar from "../components/Navbar";
 import { DahboardRight, DashboardLeft } from "../components/Dashboard";
-import React, { useContext } from "react";
-import { Context } from '../context';
-import { useRouter } from "next/router";
-import axios from "axios";
 
 export default function Home() {
   // const { loggedIn } = useCurrentUser()

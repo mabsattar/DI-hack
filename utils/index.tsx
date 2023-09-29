@@ -36,7 +36,7 @@ export const SidebarTab = [
     name: "Chat",
     icons: ChatAlt2Icon,
     active: "chat",
-    route: "/",
+    route: "/Chat",
   },
 ];
 

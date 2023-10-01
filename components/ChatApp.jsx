@@ -1,54 +1,70 @@
-import React, { useState, useEffect, useContext} from "react";
-import dynamic from "next/dynamic";
+import React, { useState, useEffect } from "react";
 import { FlowProvider, useFlow } from "../context/FlowContext";
 import DefaultLayout from '../layouts/DefaultLayout';
 import { ChatEngine, ChatFeed, ChatSettings } from 'react-chat-engine';
 import { useWeb3 } from '../context/Web3Context';
-import { useUser } from '../context/UserContext'; 
-
-
+import { useUser, UserProvider } from '../context/UserContext';
 
 const ChatApp = () => {
-  const { web3 } = useWeb3(); // Use your Web3 context to access the user's wallet address
-  const { flowData } = useFlow(); // Use your Flow context for any additional data you need
-  const { user } = useUser(); // Use your User context to access user-specific data
+  const { web3 } = useWeb3();
+  const { user } = useUser();
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const projectID = 'YOUR_CHAT_ENGINE_PROJECT_ID'; // Replace with your ChatEngine Project ID
 
-  const projectID = '7ca19379-2cc5-401b-ab3c-2a2022badd5c '; // Replace with your ChatEngine Project ID
-
-  // State to store the wallet address
-  const [walletAddress, setWalletAddress] = useState('');
-
+  // Ensure IntersectionObserver is defined before using it
   useEffect(() => {
-    // Check if the wallet address is available from your Web3 context
-    if (web3) {
-      // Obtain the user's wallet address
-      const address = web3.eth.accounts[0]; // Replace with the appropriate method to get the address
-
-      // Set the wallet address in the component state
-      setWalletAddress(address);
+    if (typeof window !== "undefined" && !window.IntersectionObserver) {
+      // Load IntersectionObserver polyfill if it's not available
+      import("intersection-observer")
+        .then(() => {
+          // IntersectionObserver is now available
+        })
+        .catch((error) => {
+          console.error("Error loading IntersectionObserver polyfill:", error);
+        });
     }
-  }, [web3]);
+  }, []);
 
-  // Check if walletAddress is defined before creating chatSettings
-  let chatSettings = null;
-  if (walletAddress) {
-    chatSettings = new ChatSettings({ userName: walletAddress });
-  }
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    if (newMessage.trim()) {
+      sendMessage(newMessage);
+      setNewMessage("");
+    }
+  };
+
+  // Rest of your component code remains the same
 
   return (
     <div>
-      <h1>Welcome to Chats</h1>
-      {walletAddress ? (
-        <ChatEngine         
-        projectID={'7ca19379-2cc5-401b-ab3c-2a2022badd5c'} chatSettings={chatSettings}>
-          {/* Chat content goes here */}
-        </ChatEngine>
-      ) : (
-        <div>
-          {/* Display a message or UI for users who are not logged in */}
-          <p>Please connect your wallet to use the chat.</p>
-        </div>
-      )}
+      <FlowProvider>
+        <DefaultLayout>
+          <div className='background'>
+            <div className='shadow'>
+              <ChatEngine
+                height='calc(100vh - 200px)'
+                projectID={projectID}
+                userName={user && user.walletAddress}
+                userSecret='YOUR_USER_SECRET' // Replace with your user secret if needed
+                renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
+              />
+              <form onSubmit={handleFormSubmit}>
+                <input
+                  type='text'
+                  placeholder='Type your message...'
+                  value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                />
+                <button type='submit'>Send</button>
+              </form>
+            </div>
+          </div>
+          <UserProvider>
+            {/* User provider content */}
+          </UserProvider>
+        </DefaultLayout>
+      </FlowProvider>
     </div>
   );
 };
@@ -57,41 +73,41 @@ export default ChatApp;
 
 
 
- /*
+/*
 const username = userWalletAddress; // Use the user's wallet address as the username
 const chatSettings = new ChatSettings({ credentials: null });
 
 
 
 const ChatEngine = dynamic(() =>
-  import("react-chat-engine").then((module) => module.ChatEngine)
+ import("react-chat-engine").then((module) => module.ChatEngine)
 ); 
 
 const MessageFormSocial = dynamic(() =>
-  import("react-chat-engine").then((module) => module.MessageFormSocial)
+ import("react-chat-engine").then((module) => module.MessageFormSocial)
 );
 
 
-  
-export default function ChatApp() {
-  
-
- /* useEffect(() => {
-    if (typeof document != null) {
-      setShowChat(true)
-    }
-  }); 
-
-  const {showChat, setShowChat} = useState(false)
-
-  if (!showChat) return <div />;
-
-  axios.put(
-    "https://api.chatengine.io/users/") */
-
-
-
  
+export default function ChatApp() {
+ 
+
+/* useEffect(() => {
+   if (typeof document != null) {
+     setShowChat(true)
+   }
+ }); 
+
+ const {showChat, setShowChat} = useState(false)
+
+ if (!showChat) return <div />;
+
+ axios.put(
+   "https://api.chatengine.io/users/") */
+
+
+
+
 /*
   return (
     <div>

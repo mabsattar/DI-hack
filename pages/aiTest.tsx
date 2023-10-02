@@ -1,7 +1,7 @@
 import React from "react";
 
 const aiTest = () => {
-  return <div>aiText</div>;
+  return <div>aiTest</div>;
 };
 
 export default aiTest;

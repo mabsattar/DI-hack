@@ -1,20 +1,16 @@
 // pages/chat.js
+import React from "react";
 import ChatApp from '../components/ChatApp';
 
 
 
-const Chat = () => {
-
-
-
-
+function Chat() {
   return (
     <div>
-      
-      <ChatApp />
+      <h1 class="text-black text-lg">Chats</h1>
+      <ChatApp /> {/* Render the Chat component */}
     </div>
-    
   );
-};
+}
 
 export default Chat;

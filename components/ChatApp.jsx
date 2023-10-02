@@ -1,27 +1,89 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from 'react';
 
 
+function Chat() {
+  const [messages, setMessages] = useState([]);
+  const [messageInput, setMessageInput] = useState('');
+  const [showPersonalChat, setShowPersonalChat] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [userProfiles, setUserProfiles] = useState([
+    { id: 1, name: 'User 1', lastMessage: 'Hello', messages: [] },
+    { id: 2, name: 'User 2', lastMessage: 'Hi there', messages: [] },
+    // Add more user profiles as needed
+  ]);
 
-const ChatApp = () => {
+  const handleSendMessage = () => {
+    // Send the message to the server and add it to the messages state
+    const newMessage = {
+      text: messageInput,
+      sender: 'current_user', // You can specify the sender here
+    };
+    setMessages([...messages, newMessage]);
+    setMessageInput('');
+  };
 
-
-
-
+  const handleOpenPersonalChat = (user) => {
+    setSelectedUser(user);
+    setShowPersonalChat(true);
+  };
 
   return (
-    <div class= "chat-container">
-      <div class="chat-header">
-        <h1>Chat App </h1>
-      </div>       
-       
-        
-      
+    <div className="chat-container bg-white">
+      <div className="chat-sidebar">
+        <h3>Chat Profiles</h3>
+        <ul>
+          {userProfiles.map((user) => (
+            <li key={user.id} className="flex justify-between items-center">
+              <div>
+                <button
+                  onClick={() => handleOpenPersonalChat(user)}
+                  className="profile-butto text-black p-3 square-lg"
+                >
+                  {user.name}
+                </button>
+                <div>Last message: {user.lastMessage}</div>
+              </div>
+              <button
+                onClick={() => handleOpenPersonalChat(user)}
+                class="message-button bg-green-400 text-black p-3 rounded-lg"
+              >
+                Message
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      {showPersonalChat ? (
+        <div className="personal-chat-box">
+          <h2>Chat with {selectedUser.name}</h2>
+          {/* Render personal chat messages here */}
+          <div className="chat-messages">
+            {/* Render personal chat messages */}
+          </div>
+          <div className="chat-input">
+            <input
+              type="text"
+              value={messageInput}
+              onChange={(e) => setMessageInput(e.target.value)}
+              placeholder="Type your message..."
+              className="flex-1 p-2 rounded-md border border-gray-300"
+            />
+            <button onClick={handleSendMessage} className="bg-green-500 text-black p-2 rounded-lg ml-2">
+              Send
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="welcome-message">Select a profile to start a chat</div>
+      )}
     </div>
-    
-  )
+  );
 }
 
-export default ChatApp;
+export default Chat;
+
+
+
 
 
 /*

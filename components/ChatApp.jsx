@@ -1,76 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { FlowProvider, useFlow } from "../context/FlowContext";
-import DefaultLayout from '../layouts/DefaultLayout';
-import { ChatEngine, ChatFeed, ChatSettings } from 'react-chat-engine';
-import { useWeb3 } from '../context/Web3Context';
-import { useUser, UserProvider } from '../context/UserContext';
+
+
 
 const ChatApp = () => {
-  const { web3 } = useWeb3();
-  const { user } = useUser();
-  const [messages, setMessages] = useState([]);
-  const [newMessage, setNewMessage] = useState("");
-  const projectID = 'YOUR_CHAT_ENGINE_PROJECT_ID'; // Replace with your ChatEngine Project ID
 
-  // Ensure IntersectionObserver is defined before using it
-  useEffect(() => {
-    if (typeof window !== "undefined" && !window.IntersectionObserver) {
-      // Load IntersectionObserver polyfill if it's not available
-      import("intersection-observer")
-        .then(() => {
-          // IntersectionObserver is now available
-        })
-        .catch((error) => {
-          console.error("Error loading IntersectionObserver polyfill:", error);
-        });
-    }
-  }, []);
 
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
-    if (newMessage.trim()) {
-      sendMessage(newMessage);
-      setNewMessage("");
-    }
-  };
 
-  // Rest of your component code remains the same
+
 
   return (
-    <div>
-      <FlowProvider>
-        <DefaultLayout>
-          <div className='background'>
-            <div className='shadow'>
-              <ChatEngine
-                height='calc(100vh - 200px)'
-                projectID={projectID}
-                userName={user && user.walletAddress}
-                userSecret='YOUR_USER_SECRET' // Replace with your user secret if needed
-                renderChatFeed={(chatAppProps) => <ChatFeed {...chatAppProps} />}
-              />
-              <form onSubmit={handleFormSubmit}>
-                <input
-                  type='text'
-                  placeholder='Type your message...'
-                  value={newMessage}
-                  onChange={(e) => setNewMessage(e.target.value)}
-                />
-                <button type='submit'>Send</button>
-              </form>
-            </div>
-          </div>
-          <UserProvider>
-            {/* User provider content */}
-          </UserProvider>
-        </DefaultLayout>
-      </FlowProvider>
+    <div class= "chat-container">
+      <div class="chat-header">
+        <h1>Chat App </h1>
+      </div>       
+       
+        
+      
     </div>
-  );
-};
+    
+  )
+}
 
 export default ChatApp;
-
 
 
 /*

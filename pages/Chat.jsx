@@ -1,13 +1,13 @@
 // pages/chat.js
 import React from "react";
-import ChatApp from '../components/ChatApp';
+import ChatApp from '../components/Chatpage/ChatApp';
 
 
 
 function Chat() {
   return (
     <div>
-      <h1 class="text-black text-lg">Chats</h1>
+      <h1 class="text-black text-xl ml-6 pt-4 pb-4">Chats</h1>
       <ChatApp /> {/* Render the Chat component */}
     </div>
   );

@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import DefaultLayout from "../layouts/DefaultLayout";
+import Navbar from '../components/Navbar';
 
 // Import FCL config
 import "../config/fcl";
@@ -14,6 +15,7 @@ function MyApp({ Component, pageProps }) {
       <DefaultLayout>
 
          <UserProvider> 
+          <Navbar />
         <Component {...pageProps} />
          </UserProvider> 
       </DefaultLayout>
